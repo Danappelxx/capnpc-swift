@@ -107,11 +107,6 @@ struct Field: StructInitializable { // 24 bytes, 4 ptrs
     var discriminantValue: UInt16 { // = 65535 // bits[16, 32)
         get {
             return storage.value(at: 16) ^ 0xffff
-//            let value: UInt16 = storage.value(at: 16)
-//            if value == 0 {
-//                return noDiscriminant
-//            }
-//            return value
         }
     }
 
@@ -126,7 +121,7 @@ struct Field: StructInitializable { // 24 bytes, 4 ptrs
         }
     }
 
-    let noDiscriminant: UInt16 = 0xffff;
+    static let noDiscriminant: UInt16 = 0xffff;
 }
 
 struct Node: StructInitializable {
