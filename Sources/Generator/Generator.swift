@@ -136,15 +136,18 @@ func moduleName(for string: String) -> String {
 
 //https://github.com/dwrensha/capnpc-rust/blob/master/src/codegen.rs#L296
 //TODO: add isReader parameter
-func getterText(generator: GeneratorContext, field: Field) throws -> String {
+func getterText(generator: GeneratorContext, field: Field) throws -> (type: String, getter: String) {
     switch field.union {
 
     case let .group(group):
-        fatalError()
+        //TODO: ensure this is correct
+        guard let type = generator.scopeMap[group.typeId]?.last else {
+            throw GeneratorError.scopeNotFound(nodeId: group.typeId)
+        }
+        return (type, "storage.value()")
 
     case let .slot(regField):
         fatalError()
-
     }
 }
 
